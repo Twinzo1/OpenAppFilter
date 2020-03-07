@@ -10,12 +10,16 @@ function index()
 	page = entry({"admin", "appControl", "appfilter"}, cbi("appfilter/appfilter"), _("appfilter"))
 	page.dependent = true
 	
-	page = entry({"admin", "network", "user_status"}, call("user_status"), nil)
+	page = entry({"admin", "appControl", "user_status"}, call("user_status"), nil)
 	page.leaf = true
 end
 
 function get_hostname_by_mac(dst_mac)
     leasefile="/tmp/dhcp.leases"
+	commentfile="/tmp/dhcp_comments.conf"
+	
+	
+	
     local fd = io.open(leasefile, "r")
 	if not fd then return end
     while true do
@@ -28,6 +32,29 @@ function get_hostname_by_mac(dst_mac)
         if  dst_mac == mac then
             print("match mac", mac, "hostname=", name);
 			fd:close()
+			if io.open("/tmp/dhcp_comments.conf") then
+				local fc = io.open("/tmp/dhcp_comments.conf", "r")
+				if fc then
+					local lc
+					while true do
+						lc =  fc:read("*l")
+						if not lc then break end
+						local comment, macs, ips = lc:match("(%S+) (%S+) (%S+)")		
+						if macs ~= "-" then
+							if macs == mac then 
+								name = comment
+								break
+							end
+						else
+							if ips == ip then
+								name = comment
+								break
+							end
+						end
+					end
+				end
+				fc:close()
+			end
             return name
         end
     end
