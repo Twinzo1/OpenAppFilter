@@ -7,10 +7,10 @@ function index()
 	
 	local page
 
-	page = entry({"admin", "appControl", "appfilter"}, cbi("appfilter/appfilter"), _("appfilter"))
+	page = entry({"admin", "control", "appfilter"}, cbi("appfilter/appfilter"), _("appfilter"))
 	page.dependent = true
 	
-	page = entry({"admin", "appControl", "user_status"}, call("user_status"), nil)
+	page = entry({"admin", "control", "user_status"}, call("user_status"), nil)
 	page.leaf = true
 end
 
