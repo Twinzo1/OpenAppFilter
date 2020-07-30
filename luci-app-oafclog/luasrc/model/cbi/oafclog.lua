@@ -25,7 +25,7 @@ s:tab("config", translate("配置文件"))
 s.anonymous=true
 local va="/etc/oafControl/vacation.bak"
 vconfig=s:taboption("config",TextValue,"Config_File_one")
-vconfig.description=translate("应用过滤日志")
+vconfig.description=translate("假期")
 vconfig.rows=18
 vconfig.wrap="off"
 vconfig.readonly=true
@@ -45,7 +45,7 @@ end
 
 local oa="/etc/oafControl/overtime.bak"
 oconfig=s:taboption("config",TextValue,"Config_File_two")
-oconfig.description=translate("应用过滤日志")
+oconfig.description=translate("加班")
 oconfig.rows=18
 oconfig.wrap="off"
 oconfig.readonly=true
